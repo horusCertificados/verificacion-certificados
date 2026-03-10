@@ -3,95 +3,298 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verificación de Certificados HORUS Academy</title>
+  <title>Verificación Oficial de Certificados | HORUS Academy</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #f7f7f7;
+      background:
+        linear-gradient(135deg, rgba(10, 37, 64, 0.95), rgba(20, 64, 110, 0.92)),
+        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+      min-height: 100vh;
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 15px;
     }
 
-    .contenedor {
+    .panel {
+      width: 100%;
+      max-width: 920px;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .encabezado {
+      background: linear-gradient(135deg, #0f2f57, #194a84);
+      color: white;
+      padding: 30px 28px 24px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
       background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border-radius: 50%;
+      padding: 10px;
+      margin-bottom: 14px;
+      border: 3px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
     }
 
-    h1 {
-      margin-top: 0;
+    .encabezado h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 0.5px;
+    }
+
+    .encabezado p {
+      margin: 10px 0 0;
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .contenido {
+      padding: 30px 24px 34px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 26px;
+      color: #374151;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .buscador {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
     }
 
     input {
-      padding: 10px;
-      width: 60%;
-      max-width: 400px;
+      width: 100%;
+      max-width: 460px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
       font-size: 16px;
+      outline: none;
+      transition: 0.2s ease;
+      background: #fff;
+    }
+
+    input:focus {
+      border-color: #1d4ed8;
+      box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
     }
 
     button {
-      padding: 10px 16px;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 10px;
+      background: #0f766e;
+      color: white;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
-      margin-left: 8px;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #0b5f59;
+    }
+
+    .resultado-base {
+      margin-top: 10px;
+      border-radius: 16px;
+      padding: 26px;
     }
 
     .valido {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 10px;
-      background: #ecfdf3;
-      border: 1px solid #a7e0bb;
+      background: linear-gradient(180deg, #f0fdf4, #ecfdf5);
+      border: 1px solid #a7f3d0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
     }
 
     .invalido {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 10px;
-      background: #fff1f1;
-      border: 1px solid #e0a0a0;
+      background: linear-gradient(180deg, #fff1f2, #fff5f5);
+      border: 1px solid #fecdd3;
     }
 
-    .titulo-ok {
-      color: #15803d;
-      font-size: 28px;
+    .estado-superior {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .sello {
+      width: 94px;
+      height: 94px;
+      min-width: 94px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #22c55e, #15803d);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       font-weight: bold;
-      margin-bottom: 15px;
+      font-size: 13px;
+      line-height: 1.2;
+      border: 5px solid #dcfce7;
+      box-shadow: 0 8px 20px rgba(21, 128, 61, 0.22);
+      padding: 10px;
     }
 
-    .linea {
-      margin: 8px 0;
+    .estado-texto h3 {
+      margin: 0 0 6px;
+      font-size: 30px;
+      color: #166534;
+    }
+
+    .estado-texto p {
+      margin: 0;
+      color: #374151;
+      font-size: 15px;
+    }
+
+    .detalle-box {
+      background: white;
+      border: 1px solid #dbeafe;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .fila {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      padding: 16px 18px;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .fila:last-child {
+      border-bottom: none;
+    }
+
+    .etiqueta {
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    .valor {
+      color: #334155;
+      word-break: break-word;
+    }
+
+    .codigo-box {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #475569;
+      text-align: right;
+    }
+
+    .pie {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .mensaje {
       font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #b91c1c;
     }
 
-    .label {
-      font-weight: bold;
+    .mensaje-secundario {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .encabezado h1 {
+        font-size: 26px;
+      }
+
+      .fila {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .estado-texto h3 {
+        font-size: 24px;
+      }
+
+      .sello {
+        width: 82px;
+        height: 82px;
+        min-width: 82px;
+        font-size: 11px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="contenedor">
-    <h1>HORUS Academy</h1>
-    <h2>Verificación oficial de certificados</h2>
+  <div class="panel">
+    <div class="encabezado">
+      <!-- Reemplaza logo-horus.png por el nombre real de tu logo si luego lo subes al repositorio -->
+      <img src="logo-horus.png" alt="Logo HORUS Academy" class="logo"
+           onerror="this.style.display='none'">
+      <h1>HORUS Academy</h1>
+      <p>Verificación oficial de certificados</p>
+    </div>
 
-    <input id="codigo" placeholder="Ingrese código del certificado">
-    <button onclick="verificar()">Verificar</button>
+    <div class="contenido">
+      <div class="intro">
+        Consulte la autenticidad de un certificado emitido por HORUS Academy ingresando
+        el código único o escaneando el código QR del documento.
+      </div>
 
-    <div id="resultado"></div>
+      <div class="buscador">
+        <input id="codigo" type="text" placeholder="Ingrese el código del certificado">
+        <button onclick="verificar()">Verificar certificado</button>
+      </div>
+
+      <div id="resultado"></div>
+
+      <div class="pie">
+        Sistema oficial de validación documental · HORUS Academy
+      </div>
+    </div>
   </div>
 
   <script>
     async function verificar() {
-      const params = new URLSearchParams(window.location.search);
+      const resultado = document.getElementById("resultado");
       const codigoInput = document.getElementById("codigo");
-      const codigo = codigoInput.value.trim() || params.get("id");
+      const params = new URLSearchParams(window.location.search);
+      const codigo = (codigoInput.value.trim() || params.get("id") || "").trim();
 
       if (!codigo) {
-        document.getElementById("resultado").innerHTML = `
-          <div class="invalido">
-            <div class="linea"><span class="label">Aviso:</span> Ingrese un código para verificar.</div>
+        resultado.innerHTML = `
+          <div class="resultado-base invalido">
+            <div class="mensaje">Ingrese un código de certificado</div>
+            <div class="mensaje-secundario">
+              Escriba el identificador del certificado para consultar su validez.
+            </div>
           </div>
         `;
         return;
@@ -99,26 +302,70 @@
 
       codigoInput.value = codigo;
 
-      const data = await fetch("certificados.json");
-      const lista = await data.json();
+      try {
+        const response = await fetch("certificados.json", { cache: "no-store" });
 
-      const encontrado = lista.find(c => c.id === codigo);
+        if (!response.ok) {
+          throw new Error("No se pudo cargar la base de certificados.");
+        }
 
-      if (encontrado) {
-        document.getElementById("resultado").innerHTML = `
-          <div class="valido">
-            <div class="titulo-ok">✔ ${encontrado.estado}</div>
-            <div class="linea"><span class="label">Empresa:</span> ${encontrado.empresa}</div>
-            <div class="linea"><span class="label">Alumno:</span> ${encontrado.alumno}</div>
-            <div class="linea"><span class="label">Curso:</span> ${encontrado.curso}</div>
-            <div class="linea"><span class="label">Fecha:</span> ${encontrado.fecha}</div>
-          </div>
-        `;
-      } else {
-        document.getElementById("resultado").innerHTML = `
-          <div class="invalido">
-            <div class="titulo-ok" style="color:#b91c1c;">✘ CERTIFICADO NO ENCONTRADO</div>
-            <div class="linea">El código ingresado no existe en el registro oficial de HORUS.</div>
+        const lista = await response.json();
+        const encontrado = lista.find(cert => cert.id === codigo);
+
+        if (encontrado) {
+          resultado.innerHTML = `
+            <div class="resultado-base valido">
+              <div class="estado-superior">
+                <div class="sello">VALIDADO<br>OFICIAL</div>
+                <div class="estado-texto">
+                  <h3>✔ ${encontrado.estado}</h3>
+                  <p>El certificado consultado se encuentra registrado en la base oficial de HORUS Academy.</p>
+                </div>
+              </div>
+
+              <div class="detalle-box">
+                <div class="fila">
+                  <div class="etiqueta">Empresa</div>
+                  <div class="valor">${encontrado.empresa}</div>
+                </div>
+                <div class="fila">
+                  <div class="etiqueta">Alumno</div>
+                  <div class="valor">${encontrado.alumno}</div>
+                </div>
+                <div class="fila">
+                  <div class="etiqueta">Curso</div>
+                  <div class="valor">${encontrado.curso}</div>
+                </div>
+                <div class="fila">
+                  <div class="etiqueta">Fecha</div>
+                  <div class="valor">${encontrado.fecha}</div>
+                </div>
+              </div>
+
+              <div class="codigo-box">
+                Código de verificación: <strong>${encontrado.id}</strong>
+              </div>
+            </div>
+          `;
+        } else {
+          resultado.innerHTML = `
+            <div class="resultado-base invalido">
+              <div class="mensaje">✘ CERTIFICADO NO ENCONTRADO</div>
+              <div class="mensaje-secundario">
+                El código ingresado no existe en el registro oficial de HORUS Academy.
+                Verifique que el número haya sido escrito correctamente.
+              </div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        resultado.innerHTML = `
+          <div class="resultado-base invalido">
+            <div class="mensaje">Error de consulta</div>
+            <div class="mensaje-secundario">
+              No fue posible acceder al registro de certificados. Revise el archivo
+              <strong>certificados.json</strong> e intente nuevamente.
+            </div>
           </div>
         `;
       }
@@ -126,7 +373,9 @@
 
     window.onload = () => {
       const params = new URLSearchParams(window.location.search);
-      if (params.get("id")) {
+      const id = params.get("id");
+      if (id) {
+        document.getElementById("codigo").value = id;
         verificar();
       }
     };
