@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Verificación de Certificados HORUS</title>
+</head>
+
+<body>
+
+<h1>HORUS</h1>
+<h2>Verificación de certificados</h2>
+
+<input id="codigo" placeholder="Ingrese código">
+<button onclick="verificar()">Verificar</button>
+
+<p id="resultado"></p>
+
+<script>
+
+async function verificar(){
+
+let codigo=document.getElementById("codigo").value
+
+let data=await fetch("certificados.json")
+let lista=await data.json()
+
+let encontrado=lista.find(c=>c.id===codigo)
+
+if(encontrado){
+
+document.getElementById("resultado").innerHTML=
+"Certificado válido<br>Nombre: "+encontrado.nombre
+
+}
+
+else{
+
+document.getElementById("resultado").innerHTML=
+"Certificado NO encontrado"
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
