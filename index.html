@@ -1,46 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Verificación de Certificados HORUS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificación de Certificados HORUS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f7f7f7;
+    }
+
+    .contenedor {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    input {
+      padding: 10px;
+      width: 60%;
+      max-width: 400px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .valido {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #ecfdf3;
+      border: 1px solid #a7e0bb;
+    }
+
+    .invalido {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #fff1f1;
+      border: 1px solid #e0a0a0;
+    }
+
+    .titulo-ok {
+      color: #15803d;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .linea {
+      margin: 8px 0;
+      font-size: 18px;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="contenedor">
+    <h1>HORUS</h1>
+    <h2>Verificación de certificados</h2>
 
-<h1>HORUS</h1>
-<h2>Verificación de certificados</h2>
+    <input id="codigo" placeholder="Ingrese código del certificado">
+    <button onclick="verificar()">Verificar</button>
 
-<input id="codigo" placeholder="Ingrese código">
-<button onclick="verificar()">Verificar</button>
+    <div id="resultado"></div>
+  </div>
 
-<p id="resultado"></p>
+  <script>
+    async function verificar() {
+      const params = new URLSearchParams(window.location.search);
+      const codigoInput = document.getElementById("codigo");
+      const codigo = codigoInput.value.trim() || params.get("id");
 
-<script>
+      if (!codigo) {
+        document.getElementById("resultado").innerHTML = `
+          <div class="invalido">
+            <div class="linea"><span class="label">Aviso:</span> Ingrese un código para verificar.</div>
+          </div>
+        `;
+        return;
+      }
 
-async function verificar(){
+      codigoInput.value = codigo;
 
-let codigo=document.getElementById("codigo").value
+      const data = await fetch("certificados.json");
+      const lista = await data.json();
 
-let data=await fetch("certificados.json")
-let lista=await data.json()
+      const encontrado = lista.find(c => c.id === codigo);
 
-let encontrado=lista.find(c=>c.id===codigo)
+      if (encontrado) {
+        document.getElementById("resultado").innerHTML = `
+          <div class="valido">
+            <div class="titulo-ok">✔ ${encontrado.estado}</div>
+            <div class="linea"><span class="label">Empresa:</span> ${encontrado.empresa}</div>
+            <div class="linea"><span class="label">Alumno:</span> ${encontrado.alumno}</div>
+            <div class="linea"><span class="label">Curso:</span> ${encontrado.curso}</div>
+            <div class="linea"><span class="label">Fecha:</span> ${encontrado.fecha}</div>
+          </div>
+        `;
+      } else {
+        document.getElementById("resultado").innerHTML = `
+          <div class="invalido">
+            <div class="titulo-ok" style="color:#b91c1c;">✘ CERTIFICADO NO ENCONTRADO</div>
+            <div class="linea">El código ingresado no existe en el registro oficial de HORUS.</div>
+          </div>
+        `;
+      }
+    }
 
-if(encontrado){
-
-document.getElementById("resultado").innerHTML=
-"Certificado válido<br>Nombre: "+encontrado.nombre
-
-}
-
-else{
-
-document.getElementById("resultado").innerHTML=
-"Certificado NO encontrado"
-
-}
-
-}
-
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("id")) {
+        verificar();
+      }
+    };
+  </script>
+</body>
+</html>
 </script>
 
 </body>
